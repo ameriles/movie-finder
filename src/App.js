@@ -35,7 +35,6 @@ class App extends React.Component {
   render () {
     const { classes, location } = this.props
     const { isMenuOpen } = this.state
-    console.log(location)
     return (
       <div className={classes.app}>
         <MovieAppBar onMenuToggle={this.onMenuToggle} onGoBack={this.onGoBack} isHome={location.pathname === '/'} />

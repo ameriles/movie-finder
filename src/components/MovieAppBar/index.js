@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -14,7 +15,7 @@ const styles = {
   }
 }
 
-class MovieFinderAppBar extends React.Component {
+class MovieAppBar extends React.Component {
   render () {
     const { classes, onGoBack, onMenuToggle, isHome } = this.props
     const mainButton = isHome
@@ -40,4 +41,10 @@ class MovieFinderAppBar extends React.Component {
   }
 }
 
-export default withStyles(styles)(MovieFinderAppBar)
+MovieAppBar.propTypes = {
+  onGoBack: PropTypes.func.isRequired,
+  onMenuToggle: PropTypes.func.isRequired,
+  isHome: PropTypes.bool.isRequired
+}
+
+export default withStyles(styles)(MovieAppBar)
