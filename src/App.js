@@ -4,7 +4,7 @@ import MovieAppDrawer from './components/MovieAppDrawer'
 import MovieSearch from './components/MovieSearch'
 import MovieDetails from './components/MovieDetails'
 import AboutUs from './components/AboutUs'
-import { HashRouter, Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
 
 const styles = {
@@ -22,6 +22,10 @@ class App extends React.Component {
     }
   }
 
+  onGoBack = () => {
+    this.props.history.goBack()
+  }
+
   onMenuToggle = () => {
     this.setState({
       isMenuOpen: !this.state.isMenuOpen
@@ -29,21 +33,20 @@ class App extends React.Component {
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, location } = this.props
     const { isMenuOpen } = this.state
+    console.log(location)
     return (
       <div className={classes.app}>
-        <HashRouter>
-          <MovieAppBar onMenuToggle={this.onMenuToggle} />
-          <MovieAppDrawer open={isMenuOpen} onToggle={this.onMenuToggle} />
+        <MovieAppBar onMenuToggle={this.onMenuToggle} onGoBack={this.onGoBack} isHome={location.pathname === '/'} />
+        <MovieAppDrawer open={isMenuOpen} onToggle={this.onMenuToggle} />
 
-          <Route exact path='/' component={MovieSearch} />
-          <Route path='/details/:id' component={MovieDetails} />
-          <Route path='/about' component={AboutUs} />
-        </HashRouter>
+        <Route exact path='/' component={MovieSearch} />
+        <Route path='/details/:id' component={MovieDetails} />
+        <Route path='/about' component={AboutUs} />
       </div>
     )
   }
 }
 
-export default withStyles(styles)(App)
+export default withRouter(withStyles(styles)(App))

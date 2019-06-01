@@ -1,5 +1,4 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
 import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -16,22 +15,15 @@ const styles = {
 }
 
 class MovieFinderAppBar extends React.Component {
-  goBack = () => {
-    const { history } = this.props
-    history.goBack()
-  }
-
   render () {
-    const { classes, onMenuToggle, location } = this.props
-    const isHome = location.pathname === '/'
-
+    const { classes, onGoBack, onMenuToggle, isHome } = this.props
     const mainButton = isHome
       ? <IconButton className={classes.menuButton} color='inherit'
         onClick={onMenuToggle}>
         <MenuIcon />
       </IconButton>
       : <IconButton className={classes.menuButton} color='inherit'
-        onClick={this.goBack}>
+        onClick={onGoBack}>
         <ArrowBackIcon />
       </IconButton>
 
@@ -48,4 +40,4 @@ class MovieFinderAppBar extends React.Component {
   }
 }
 
-export default withRouter(withStyles(styles)(MovieFinderAppBar))
+export default withStyles(styles)(MovieFinderAppBar)
